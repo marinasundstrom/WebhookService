@@ -1,0 +1,18 @@
+
+@baseUrl = https://localhost:7227
+
+### Health check (endpoint not yet implemented)
+# GET {{baseUrl}}/health
+
+### Unsigned webhook (should return 401)
+POST {{baseUrl}}/webhooks
+Content-Type: application/json
+
+{
+  "id": "f4d33e6e-c8bb-4e61-a64a-bf2d7c7b42b1",
+  "type": "booking.created",
+  "occurredAt": "2026-11-08T12:00:00Z",
+  "data": {
+    "bookingId": "2e85c0e7-7f53-41d3-9d76-6a8b67c8a0bb"
+  }
+}

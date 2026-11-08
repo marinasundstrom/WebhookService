@@ -1,0 +1,71 @@
+
+@baseUrl = https://localhost:7030
+@token = YOUR_ACCESS_TOKEN
+@webhookId = REPLACE_WITH_SUBSCRIPTION_ID
+
+### List webhook subscriptions
+GET {{baseUrl}}/api/webhooks
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Create webhook subscription
+# @name createWebhook
+POST {{baseUrl}}/api/webhooks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "url": "https://localhost:7227/webhooks",
+  "events": [
+    "booking.created",
+    "booking.updated",
+    "booking.cancelled"
+  ]
+}
+
+### Get subscriptions after creation
+GET {{baseUrl}}/api/webhooks
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Update webhook subscription
+PUT {{baseUrl}}/api/webhooks/{{webhookId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "url": "https://localhost:7227/webhooks",
+  "events": [
+    "booking.created",
+    "booking.cancelled",
+    "customer.updated"
+  ],
+  "isActive": true
+}
+
+### Get delivery history
+GET {{baseUrl}}/api/webhooks/{{webhookId}}/deliveries
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Disable webhook subscription
+PUT {{baseUrl}}/api/webhooks/{{webhookId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "url": "https://localhost:7227/webhooks",
+  "events": [
+    "booking.created",
+    "booking.cancelled"
+  ],
+  "isActive": false
+}
+
+### Delete (soft-delete) webhook subscription
+DELETE {{baseUrl}}/api/webhooks/{{webhookId}}
+Authorization: Bearer {{token}}
+
+### Publish test event
+POST {{baseUrl}}/api/webhooks/test
+Content-Type: application/json
